@@ -1,29 +1,23 @@
-const Author = require("./models/Author")
-const Book = require("./models/Book")
+const Book = require("../models/Book")
 
-async function createAuthor(name, bio, website) {
-    const author = new Author({
-        name,
-        bio,
-        website,
+const createBook = async (req, res) => {
+    if (!req.body.title || !req.body.author) res.status(404).send("Not Found")
+
+    const book = await Book.create({
+        title: req.body.title,
+        author: req.body.author,
     })
 
-    const result = await author.save()
-    console.log(result)
+    res.status(200).json(book)
 }
 
-async function createBook(title, author) {
-    const book = new Book({
-        title,
-        author,
-    })
-
-    const result = await book.save()
-    console.log(result)
+const getBooks = async (req, res) => {
+    const book = await Book
+        .find()
+        .populate("author", "name bio website -_id")
+        .select("title")
+        
+    res.status(200).json(book)
 }
 
-async function getBooks() {
-    const books = await Book.find().populate("author").select("title")
-
-    console.log(books)
-}
+module.exports = { createBook, getBooks }
