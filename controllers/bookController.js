@@ -20,4 +20,12 @@ const getBooks = async (req, res) => {
     res.status(200).json(book)
 }
 
-module.exports = { createBook, getBooks }
+const deleteBook = async (req, res) => {
+    const book = await Book.findById(req.params.id)
+    if (!book) res.status(404).send("Not Found")
+    console.log("found")
+    
+    res.status(200).json(book)
+}
+
+module.exports = { createBook, getBooks, deleteBook }

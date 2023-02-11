@@ -3,10 +3,10 @@ const connectDB = require("./config/db")
 connectDB()
 
 const { createAuthor } = require("./controllers/authorController")
-const { createBook, getBooks } = require("./controllers/bookController")
+const { createBook, getBooks, deleteBook } = require("./controllers/bookController")
 
 
-const express = require('express')
+const express = require("express")
 const app = express()
 app.use(express.json())
 
@@ -18,6 +18,7 @@ app.use(express.json())
 // }
 app.post("/api/author", createAuthor)
 
+
 // ADD BOOK
 // {
 //     "title": "",
@@ -25,9 +26,14 @@ app.post("/api/author", createAuthor)
 // }
 app.post("/api/book", createBook)
 
-// GET BOOK
+
+// GET BOOKS
 app.get("/api/book", getBooks)
 
+// ! DELETE BOOK NEVEIKIA NEVEIKIA NEVEIKIA NEVEIKIA NEVEIKIA
+app.get("api/book/:id", deleteBook)
+
+
 app.listen(process.env.PORT, () => {
-    console.log("Listening on", process.env.PORT)
+    console.log("Listening on PORT", process.env.PORT)
 })
