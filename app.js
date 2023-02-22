@@ -30,7 +30,7 @@ app.post("/api/book", createBook)
 // GET BOOKS
 app.get("/api/book", getBooks)
 
-// ! DELETE BOOK NEVEIKIA NEVEIKIA NEVEIKIA NEVEIKIA NEVEIKIA
+// DELTE BOOK BY ID
 app.get("api/book/:id", deleteBook)
 
 
